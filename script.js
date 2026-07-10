@@ -51,13 +51,13 @@ document.querySelectorAll(".desktop-nav a").forEach(link => {
 const chatToggle = document.getElementById("chat-toggle");
 const chatWindow = document.getElementById("chat-window");
 
-chatToggle.addEventListener("click", () => {
-    if (chatWindow.style.display === "flex") {
-        chatWindow.style.display = "none";
-    } else {
-        chatWindow.style.display = "flex";
-    }
-});
+if (chatToggle && chatWindow) {
+    chatToggle.addEventListener("click", () => {
+        chatWindow.style.display =
+            chatWindow.style.display === "flex" ? "none" : "flex";
+    });
+}
+
 const chatInput = document.getElementById("chat-input");
 const sendBtn = document.getElementById("send-btn");
 const messages = document.getElementById("chat-messages");
@@ -71,32 +71,57 @@ async function sendMessage() {
     if (!message) return;
 
     messages.innerHTML += `<p><b>You:</b> ${message}</p>`;
-
     chatInput.value = "";
 
-    const response = await fetch("https://api.cohere.ai/v1/chat", {
-        method: "POST",
-        headers: {
-            "Authorization": `Bearer ${API_KEY}`,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            model: "command-r-plus",
-            message: message
-        })
-    });
+    try {
 
-    const data = await response.json();
+        const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    contents: [
+                        {
+                            parts: [
+                                {
+                                    text: message
+                                }
+                            ]
+                        }
+                    ]
+                })
+            }
+        );
 
-console.log(data);
+        const data = await response.json();
 
-messages.innerHTML += `<p><b>VG:</b> ${data.text || JSON.stringify(data)}</p>`;
+        console.log(data);
+
+        const reply =
+            data.candidates?.[0]?.content?.parts?.[0]?.text ||
+            "Sorry, I couldn't generate a response.";
+
+        messages.innerHTML += `<p><b>VG:</b> ${reply}</p>`;
+
+    } catch (error) {
+
+        console.error(error);
+
+        messages.innerHTML += `<p><b>VG:</b> Something went wrong. Please try again.</p>`;
+
+    }
 
     messages.scrollTop = messages.scrollHeight;
 }
 
 sendBtn.addEventListener("click", sendMessage);
 
-chatInput.addEventListener("keypress", e => {
-    if (e.key === "Enter") sendMessage();
+chatInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        sendMessage();
+    }
 });
