@@ -40,4 +40,9 @@ if (menuToggle && desktopNav) {
         console.log("clicked");
         desktopNav.classList.toggle("active");
     });
-}
+}// Close mobile menu after clicking a link
+document.querySelectorAll(".desktop-nav a").forEach(link => {
+    link.addEventListener("click", () => {
+        desktopNav.classList.remove("active");
+    });
+});
