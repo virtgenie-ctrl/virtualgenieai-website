@@ -405,15 +405,17 @@ Tell us about your business and we'll design an AI system tailored to your opera
 <input type="hidden" name="_subject" value="New Virtual Genie AI Lead">
 <input type="hidden" name="_captcha" value="false">
 <input type="hidden" name="_template" value="table">
-<input type="text" placeholder="Full Name">
+<input type="text" name="name" placeholder="Full Name" required>
 
-<input type="email" placeholder="Email Address">
+<input type="email" name="email" placeholder="Email Address" required>
 
-<input type="text" placeholder="Company">
+<input type="text" name="company" placeholder="Company">
 
-<textarea placeholder="Describe your project..." rows="6"></textarea>
+<textarea name="message" placeholder="Describe your project..." rows="6" required></textarea>
 
-<button class="primary-btn">
+<button type="submit" class="primary-btn">
+    Request Consultation →
+</button>
 Request Consultation →
 </button>
 
