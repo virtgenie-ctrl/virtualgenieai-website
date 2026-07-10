@@ -62,7 +62,7 @@ const chatInput = document.getElementById("chat-input");
 const sendBtn = document.getElementById("send-btn");
 const messages = document.getElementById("chat-messages");
 
-const API_KEY = "AQ.Ab8RN6K3-6iQIKxIS3sSrF0tIKvM0RnIHSh9Qps-jUf0IXQecA";
+const API_KEY = "AQ.Ab8RN6JntY5-41olYteBVCsEjVqlpcgFH3NE0sJ7wqOXBb0jnQ";
 
 async function sendMessage() {
 
