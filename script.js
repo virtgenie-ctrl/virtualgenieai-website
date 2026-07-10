@@ -46,3 +46,15 @@ document.querySelectorAll(".desktop-nav a").forEach(link => {
         desktopNav.classList.remove("active");
     });
 });
+// ================= AI CHATBOT =================
+
+const chatToggle = document.getElementById("chat-toggle");
+const chatWindow = document.getElementById("chat-window");
+
+chatToggle.addEventListener("click", () => {
+    if (chatWindow.style.display === "flex") {
+        chatWindow.style.display = "none";
+    } else {
+        chatWindow.style.display = "flex";
+    }
+});
