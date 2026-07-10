@@ -1124,4 +1124,12 @@ display:block;
 display:none;
 }
 
+}.contact-form{
+    padding-bottom:100px;
+}
+
+.primary-btn{
+    display:block;
+    width:100%;
+    margin:30px 0;
 }
